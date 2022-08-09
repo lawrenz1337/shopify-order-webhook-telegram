@@ -36,7 +36,6 @@ jobs:
           name: 'my-function'
           runtime: 'nodejs16'
           entry_point: 'processWebhook'
-          region: 'eu-north1'
           max_instances: 1
       # Example of using the output
       - id: 'test'
