@@ -1,0 +1,35 @@
+{
+  "name": "shopify-order-webhook-telegram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lawrenz1337/shopify-order-webhook-telegram.git"
+  },
+  "keywords": [],
+  "author": "Mykhailo Diachuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lawrenz1337/shopify-order-webhook-telegram/issues"
+  },
+  "homepage": "https://github.com/lawrenz1337/shopify-order-webhook-telegram#readme",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
+    "dotenv": "^16.0.1",
+    "telegraf": "^4.8.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "2.7.1"
+  }
+}
