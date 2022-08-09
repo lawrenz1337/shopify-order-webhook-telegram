@@ -42,5 +42,5 @@ jobs:
           env_vars: 'SIGNATURE=${{ secrets.SIGNATURE }},TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }},RECIPIENT=${{ secrets.RECIPIENT }},SHOP_ADMIN_LINK=${{ secrets.SHOP_ADMIN_LINK }},MENTIONS=${{ secrets.MENTIONS }}'
       # Example of using the output
       - id: 'test'
-        run: echo 'Function status is: ${{ steps.deploy.outputs.status }}'
+        run: 'echo "Function status is: ${{ steps.deploy.outputs.status }}"'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
