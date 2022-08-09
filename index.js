@@ -39,8 +39,16 @@ functions.http('processWebhook', (req, res) => {
             `A new theme version has been published ${MENTIONS}`
         )
       }
+      if (headers['x-shopify-topic'] === 'themes/update') {
+        bot.telegram.sendMessage(
+          RECIPIENT,
+          'An update was made to a theme'
+        )
+      }
     }
-  } catch (_) {}
+  } catch (e) {
+    console.error(e)
+  }
 
   res.send('OK')
 })
