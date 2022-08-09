@@ -9,7 +9,7 @@
 
 ### Description
 
-Welcome, in this repository you will find an example on how to properly set up a Google Cloud Function as you webhook target and send telegram message on specific events, any forks/comments/PRs are appreciated!
+Welcome, in this repository you will find an example on how to properly set up a Google Cloud Function as your webhook target and send telegram messages on specific events, any forks/comments/PRs are appreciated!
 
 ### Instructions on setup
 
