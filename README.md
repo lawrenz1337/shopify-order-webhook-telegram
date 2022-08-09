@@ -1,6 +1,7 @@
 # shopify-order-webhook-telegram
 
-![Contributors](https://img.shields.io/github/contributors/lawrenz1337/shopify-order-webhook-telegram?style=plastic)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Flawrenz1337%2Fshopify-order-webhook-telegram%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/lawrenz1337/shopify-order-webhook-telegram/goto?ref=master)
+![Contributors](https://img.shields.io/github/contributors/lawrenz1337/shopify-order-webhook-telegram)
 ![Forks](https://img.shields.io/github/forks/lawrenz1337/shopify-order-webhook-telegram)
 ![Stars](https://img.shields.io/github/stars/lawrenz1337/shopify-order-webhook-telegram)
 ![Licence](https://img.shields.io/github/license/lawrenz1337/shopify-order-webhook-telegram)
