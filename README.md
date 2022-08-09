@@ -30,3 +30,8 @@ SHOP_ADMIN_LINK=https://your_shopify_shop.com/admin
 #Mentions specific user in a message (can be multiple users)
 MENTIONS="@AnyTelegramUser @AnotherTelegramUser"
 ```
+
+#### Running locally
+To start function locally please use this script `npm run start`.
+To make test requests you can use any software you like: postman, insomnia, etc.
+To test webhooks, expose your localhost to web via `ngrok` and put your url inside of shopify settings. 

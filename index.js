@@ -11,8 +11,9 @@ const verifyHeaders = (data, hmacHeader) => {
   return res === hmacHeader
 }
 
-functions.http('yuvalPost', (req, res) => {
+functions.http('processWebhook', (req, res) => {
   const { headers } = req
+  const bot = new Telegraf(TELEGRAM_TOKEN)
 
   try {
     const isVerified = verifyHeaders(
@@ -20,8 +21,6 @@ functions.http('yuvalPost', (req, res) => {
       headers['x-shopify-hmac-sha256']
     )
     if (isVerified) {
-      const bot = new Telegraf(TELEGRAM_TOKEN)
-
       if (headers['x-shopify-topic'] === 'orders/create') {
         const order = req.body
         const message = `
