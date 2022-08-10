@@ -37,6 +37,21 @@ const topics = {
       RECIPIENT,
       'An update was made to a theme'
     )
+  },
+  'carts/update': ({ bot, order: cart }) => {
+    const message = `
+      <b>Cart ${cart.id.substring(0, 4)} has been updated</b>
+      - <b>New price</b>: ${cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)}
+    `
+    bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
+  },
+  'carts/create': ({ bot, order: cart }) => {
+    const message = `
+      <b>Cart ${cart.id.substring(0, 4)} has been created</b>
+      - <b>Number of items</b>: ${cart.line_items.length}
+      - <b>Total price</b>: ${cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)}
+    `
+    bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
   }
 }
 
