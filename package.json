@@ -20,7 +20,7 @@
   "homepage": "https://github.com/lawrenz1337/shopify-order-webhook-telegram#readme",
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.2",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "telegraf": "^4.8.6"
   },
   "devDependencies": {
