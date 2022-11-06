@@ -36,3 +36,7 @@ MENTIONS="@AnyTelegramUser @AnotherTelegramUser"
 To start function locally please use this script `npm run start`.
 To make test requests you can use any software you like: postman, insomnia, etc.
 To test webhooks, expose your localhost to web via `ngrok` and put your url inside of shopify settings. 
+
+
+
+
