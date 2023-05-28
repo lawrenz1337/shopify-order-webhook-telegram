@@ -2,7 +2,7 @@ require('dotenv').config()
 const functions = require('@google-cloud/functions-framework')
 const { Telegraf } = require('telegraf')
 const { createHmac } = require('crypto')
-const { SIGNATURE, TELEGRAM_TOKEN, RECIPIENT, SHOP_ADMIN_LINK, MENTIONS } = process.env
+const { SIGNATURE, TELEGRAM_TOKEN, RECIPIENT, RECIPIENT2, SHOP_ADMIN_LINK, MENTIONS } = process.env
 
 const verifyHeaders = (data, hmacHeader) => {
   if (!data || !hmacHeader) {
@@ -24,7 +24,11 @@ const topics = {
           - <b>Client Phone</b>: <code>${order.phone} or ${order.customer?.phone} or ${order.customer?.default_address?.phone}</code>
           ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
         `
+
     bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
+    if (Number(order.total_price) > 0) {
+      bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
+    }
   },
   'themes/publish': ({ bot }) => {
     bot.telegram.sendMessage(
@@ -46,8 +50,7 @@ const topics = {
         - <b>New price</b>: ${newPrice}
       `
       bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
-    } 
-    
+    }
   },
   'carts/create': ({ bot, order: cart }) => {
     if (cart.line_items.length > 0) {
