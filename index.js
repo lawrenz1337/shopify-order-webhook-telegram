@@ -26,9 +26,7 @@ const topics = {
         `
 
     bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
-    if (Number(order.total_price) > 0) {
-      bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
-    }
+    bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
   },
   'themes/publish': ({ bot }) => {
     bot.telegram.sendMessage(
