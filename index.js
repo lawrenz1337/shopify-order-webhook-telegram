@@ -20,6 +20,10 @@ const topics = {
           <b>New Order</b>
           - <b>Order ID</b>: ${order.id}
           - <b>Order Number</b>: ${order.order_number}
+          - <b>Item SKU's</b>: ${order.line_items.reduce((p, c) => {
+            const SKU = c.sku ? c.sku : 'N/A'
+            return p + SKU + ','
+          }, '')}
           - <b>Total Price</b>: ${order.total_price} ${order.currency}
           - <b>Client Phone</b>: <code>${order.phone} or ${order.customer?.phone} or ${order.customer?.default_address?.phone}</code>
           ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
@@ -55,6 +59,10 @@ const topics = {
       const message = `
         <b>Cart ${cart.id.substring(0, 4)} has been created</b>
         - <b>Number of items</b>: ${cart.line_items.length}
+        - <b>Item SKU's</b>: ${cart.line_items.reduce((p, c) => {
+          const SKU = c.sku ? c.sku : 'N/A'
+          return p + SKU + ','
+        }, '')}
         - <b>Total price</b>: ${cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)}
       `
       bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
