@@ -14,6 +14,19 @@ const verifyHeaders = (data, hmacHeader) => {
   return hash === hmacHeader
 }
 
+const getCartMessage = (cart, message = 'Cart has been updated') => {
+  return `
+    <b>${message}</b>
+    - <b>Number of items</b>: ${cart.line_items.length}
+    - <b>Note</b>: ${cart.note || 'N/A'}
+    - <b>Item SKU's</b>: ${cart.line_items.reduce((p, c) => {
+      const SKU = c.sku ? c.sku : 'N/A'
+      return p + SKU + ','
+    }, '')}
+    - <b>Total price</b>: ${cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)}
+  `
+}
+
 const topics = {
   'orders/create': ({ order, bot }) => {
     const message = `
@@ -47,24 +60,13 @@ const topics = {
   'carts/update': ({ bot, order: cart }) => {
     const newPrice = cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)
     if (newPrice > 0) {
-      const message = `
-        <b>Cart ${cart.id.substring(0, 4)} has been updated</b>
-        - <b>New price</b>: ${newPrice}
-      `
+      const message = getCartMessage(cart)
       bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
     }
   },
   'carts/create': ({ bot, order: cart }) => {
     if (cart.line_items.length > 0) {
-      const message = `
-        <b>Cart ${cart.id.substring(0, 4)} has been created</b>
-        - <b>Number of items</b>: ${cart.line_items.length}
-        - <b>Item SKU's</b>: ${cart.line_items.reduce((p, c) => {
-          const SKU = c.sku ? c.sku : 'N/A'
-          return p + SKU + ','
-        }, '')}
-        - <b>Total price</b>: ${cart.line_items.reduce((p, c) => parseFloat(p) + parseFloat(c.line_price), 0)}
-      `
+      const message = getCartMessage(cart, 'A new cart has been created')
       bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
     }
   }
