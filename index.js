@@ -29,18 +29,19 @@ const getCartMessage = (cart, message = 'Cart has been updated') => {
 
 const topics = {
   'orders/create': ({ order, bot }) => {
+    const phone = order.phone || order.customer?.phone || order.customer?.default_address?.phone
     const message = `
-          <b>New Order</b>
-          - <b>Order ID</b>: ${order.id}
-          - <b>Order Number</b>: ${order.order_number}
-          - <b>Item SKU's</b>: ${order.line_items.reduce((p, c) => {
-            const SKU = c.sku ? c.sku : 'N/A'
-            return p + SKU + ','
-          }, '')}
-          - <b>Total Price</b>: ${order.total_price} ${order.currency}
-          - <b>Client Phone</b>: <code>${order.phone} or ${order.customer?.phone} or ${order.customer?.default_address?.phone}</code>
-          ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
-        `
+      <b>New Order!</b>
+      - <b>Order Number</b>: ${order.order_number}
+      - <b>Note</b>: ${order.note || 'N/A'}
+      - <b>Item SKU's</b>: ${order.line_items.reduce((p, c) => {
+        const SKU = c.sku ? c.sku : 'N/A'
+        return p + SKU + ','
+      }, '')}
+      - <b>Total Price</b>: ${order.total_price} ${order.currency}
+      - <b>Client Phone</b>: <code>${phone}</code>
+      ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
+    `
 
     bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
     bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
