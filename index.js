@@ -40,11 +40,16 @@ const topics = {
       }, '')}
       - <b>Total Price</b>: ${order.total_price} ${order.currency}
       - <b>Client Phone</b>: <code>${phone}</code>
+      - <b>Source</b>: ${order.source_name ?? 'unknown'}
       ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
     `
 
-    bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
-    bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
+    if (RECIPIENT) {
+      bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
+    }
+    if (RECIPIENT2) {
+      bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
+    }
   },
   'themes/publish': ({ bot }) => {
     bot.telegram.sendMessage(
