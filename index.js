@@ -2,7 +2,7 @@ require('dotenv').config()
 const functions = require('@google-cloud/functions-framework')
 const { Telegraf } = require('telegraf')
 const { createHmac } = require('crypto')
-const { SIGNATURE, TELEGRAM_TOKEN, RECIPIENT, RECIPIENT2, SHOP_ADMIN_LINK, MENTIONS } = process.env
+const { SIGNATURE, TELEGRAM_TOKEN, RECIPIENT, RECIPIENT2, SHOP_ADMIN_LINK, MENTIONS, ACCESS_TOKEN } = process.env
 
 const verifyHeaders = (data, hmacHeader) => {
   if (!data || !hmacHeader) {
@@ -28,8 +28,21 @@ const getCartMessage = (cart, message = 'Cart has been updated') => {
 }
 
 const topics = {
-  'orders/create': ({ order, bot }) => {
+  'orders/create': async ({ order, bot }) => {
     const phone = order.phone || order.customer?.phone || order.customer?.default_address?.phone
+    let locationName
+
+    try {
+      const { location } = await (await fetch(`${SHOP_ADMIN_LINK}/api/2024-01/locations/${order.location_id}.json`, {
+        headers: {
+          'X-Shopify-Access-Token': ACCESS_TOKEN
+        }
+      })).json()
+      locationName = location.name
+    } catch (e) {
+      console.error('Location not found', order.location_id)
+    }
+
     const message = `
       <b>New Order!</b>
       - <b>Order Number</b>: ${order.order_number}
@@ -41,15 +54,14 @@ const topics = {
       - <b>Total Price</b>: ${order.total_price} ${order.currency}
       - <b>Client Phone</b>: <code>${phone}</code>
       - <b>Source</b>: ${order.source_name ?? 'unknown'}
+      - <b>Location</b>: ${locationName ?? 'unknown'}
       ${SHOP_ADMIN_LINK ? `<a href="${SHOP_ADMIN_LINK}/orders/${order.id}"><i>Order Link</i></a>` : ''}
     `
 
-    if (RECIPIENT) {
-      bot.telegram.sendMessage(RECIPIENT, message, { parse_mode: 'HTML' })
-    }
-    if (RECIPIENT2) {
-      bot.telegram.sendMessage(RECIPIENT2, message, { parse_mode: 'HTML' })
-    }
+    const recipients = [RECIPIENT, RECIPIENT2]
+    recipients.filter(Boolean).forEach((recipient) => {
+      bot.telegram.sendMessage(recipient, message, { parse_mode: 'HTML' })
+    })
   },
   'themes/publish': ({ bot }) => {
     bot.telegram.sendMessage(
