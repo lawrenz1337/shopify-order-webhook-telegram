@@ -37,7 +37,7 @@ jobs:
           max_instances: 1
           region: 'europe-west1'
           https_trigger_security_level: 'secure_always'
-          env_vars: 'SIGNATURE=${{ secrets.SIGNATURE }},TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }},RECIPIENT=${{ secrets.RECIPIENT }},RECIPIENT2=${{ secrets.RECIPIENT2 }},SHOP_ADMIN_LINK=${{ secrets.SHOP_ADMIN_LINK }},MENTIONS=${{ secrets.MENTIONS }}'
+          env_vars: 'ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }},SIGNATURE=${{ secrets.SIGNATURE }},TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }},RECIPIENT=${{ secrets.RECIPIENT }},RECIPIENT2=${{ secrets.RECIPIENT2 }},SHOP_ADMIN_LINK=${{ secrets.SHOP_ADMIN_LINK }},MENTIONS=${{ secrets.MENTIONS }}'
       - id: 'status'
         run: 'echo "Function status is: ${{ steps.deploy.outputs.status }}"'
       - id: 'test'
