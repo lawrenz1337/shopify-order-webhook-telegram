@@ -33,13 +33,18 @@ const topics = {
     let locationName
 
     try {
-      const { location } = await (await fetch(`${SHOP_ADMIN_LINK}/api/2024-01/locations/${order.location_id}.json`, {
+      const url = `${SHOP_ADMIN_LINK}/api/2024-01/locations/${order.location_id}.json`
+      const cleanUrl = url.replace(/([^:]\/)\/+/g, '$1')
+      const result = await fetch(cleanUrl, {
         headers: {
           'X-Shopify-Access-Token': ACCESS_TOKEN
         }
-      })).json()
+      })
+      const { location } = await result.json()
       locationName = location.name
     } catch (e) {
+      console.error(e)
+      console.error(e.message)
       console.error('Location not found', order.location_id)
     }
 
