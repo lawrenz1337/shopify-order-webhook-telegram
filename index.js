@@ -45,7 +45,7 @@ const topics = {
     } catch (e) {
       console.error(e)
       console.error(e.message)
-      console.error('Location not found', order.location_id)
+      console.error('Location not found', order.location_id, 'ORDER:', JSON.stringify(order))
     }
 
     const message = `
